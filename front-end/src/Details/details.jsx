@@ -1,7 +1,13 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import fetchData from "./fetch";
 
 function Details() {
+const [detail, setDetail] = useState([]);
+	useEffect(() => {
+		setDetail(fetchData("properties/detail/5/"));
+		console.log(detail);
+	}, []);
   return (
     <div className="flex flex-col w-full h-full justify-center items-center gap-3">
       <div className="flex flex-row mt-4 w-11/12 h-">
