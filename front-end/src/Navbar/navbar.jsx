@@ -14,7 +14,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
 const pages = ["Apartments", "Hotels", "Bungalow", "PG"];
-const settings = ["Post Property", "Logout"];
+function setCookie(cname, cvalue) {
+  const d = new Date();
+  d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function deleteCookie(){
+  setCookie("token", -1);
+  window.location.reload();
+}
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -85,9 +95,9 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
               ))}
             </Menu>
           </Box>
@@ -148,11 +158,18 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="Post Property" onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Post Property</Typography>
+              </MenuItem>
+              <MenuItem
+                key="Logout"
+                onClick={() => {
+                  handleCloseUserMenu();
+                  deleteCookie();
+                }}
+              >
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

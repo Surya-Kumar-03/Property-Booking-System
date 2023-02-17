@@ -8,8 +8,13 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Cards from "./cards";
 import Footer from "../Footer/footer";
+import instance from "../axios";
 
 function Home() {
+  instance.get("properties/").then((response) => {
+    console.log(response);
+  });
+
   const [value, setValue] = React.useState(dayjs("2023-02-17T21:11:54"));
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -52,6 +57,10 @@ function Home() {
         <Cards></Cards>
         <Cards></Cards>
         <Cards></Cards>
+        <Cards></Cards>
+        <Cards></Cards>
+        <Cards></Cards>
+
       </div>
       <Footer></Footer>
     </div>
