@@ -5,3 +5,11 @@
 body {
   overflow-x: hidden;
 }
+
+.animateCards{
+  animation: backInUp 2s forwards;
+}
+
+.animateLogin{
+  animation: jackInTheBox 1s forwards;
+}
