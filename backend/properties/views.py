@@ -33,7 +33,7 @@ def detail_view(request, id):
                 'image': create_url('/media' + str(data.image), request),
                 'price': data.price_per_night,
                 'review': 4.3,
-                'detail_link': 'properties/detail/' + str(data.pk) + '/'
+                'detail_link': 'properties/detail/' + str(data.pk)
             }
         }
     else:
@@ -71,7 +71,7 @@ def home(request):
             'image': create_url('/media/' + str(d.image), request),
             'price': d.price_per_night,
             'review': 4.3,
-            'detail_link': 'properties/detail/' + str(d.pk) + '/'
+            'detail_link': 'properties/detail/' + str(d.pk) 
 
         })
     return Response(response)

@@ -8,7 +8,7 @@ import { Icon } from "@iconify/react";
 
 export default function RecipeReviewCard(props) {
 	return (
-		<a href={props.detail_link}>
+		<a href={props.detail_link + "/"}>
 			<Card
 				sx={{ maxWidth: 345 }}
 				className='hover:scale-105 hover:shadow-2xl cursor-pointer'
