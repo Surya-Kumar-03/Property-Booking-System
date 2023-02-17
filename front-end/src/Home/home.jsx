@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
@@ -11,13 +11,25 @@ import Footer from "../Footer/footer";
 import instance from "../axios";
 
 function Home() {
-  instance.get("properties/").then((response) => {
-    console.log(response);
-  });
+  const [recievedData, setRecievedData] = useState([]);
+  const [clicked, setClicked] = useState(false);
+
+  useEffect(() => {
+    instance.get("properties/?q=" + query).then((response) => {
+      setRecievedData(response.data.data);
+      console.log(response.data);
+    });
+  }, [clicked]);
 
   const [value, setValue] = React.useState(dayjs("2023-02-17T21:11:54"));
   const handleChange = (newValue) => {
     setValue(newValue);
+  };
+
+  const [query, setQuery] = useState("");
+
+  const handleChange2 = (event) => {
+    setQuery(event.target.value);
   };
 
   return (
@@ -27,6 +39,8 @@ function Home() {
           className="w-96"
           id="filled-basic"
           label="Search by city, hotel or neighbourhood"
+          value={query}
+          onChange={handleChange2}
         />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DesktopDatePicker
@@ -44,23 +58,34 @@ function Home() {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+        <IconButton
+          type="button"
+          sx={{ p: "10px" }}
+          aria-label="search"
+          onClick={() => {
+            setClicked(!clicked);
+          }}
+        >
           <SearchIcon />
         </IconButton>
       </div>
       <div className="flex flex-row flex-wrap gap-4 justify-center items-center w-11/12 h-auto mt-5 mb-16">
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-        <Cards></Cards>
-
+        {recievedData ? (
+          recievedData.map((card, idx) => {
+            return (
+              <Cards
+                title={card.title}
+                short_address={card.short_address}
+                guest={card.guest}
+                price={card.price}
+                type={card.type}
+                image={card.image}
+              />
+            );
+          })
+        ) : (
+          <></>
+        )}
       </div>
       <Footer></Footer>
     </div>

@@ -3,6 +3,7 @@ import Layout from "./Layout/layout";
 import Home from "./Home/home";
 import React from "react";
 import Login from "./Login/login";
+import Details from "./Details/details";
 
 function getCookie(cname) {
   let name = cname + "=";
@@ -40,6 +41,7 @@ function App() {
       <Route path="/" element={<Layout></Layout>}>
         <Route index element={<Home></Home>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/details" element={<Details></Details>}></Route>
       </Route>
     </Routes>
   );
