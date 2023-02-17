@@ -10,6 +10,37 @@ from properties.serializers import PropertySerializer
 from functools import reduce
 import operator
 from django.db.models import Q
+from django.contrib.sites.shortcuts import get_current_site
+
+
+def create_url(url, request):
+    return 'http://' + str(get_current_site(request)) + url
+
+
+@api_view(['GET'])
+def detail_view(request, id):
+    data = Property.objects.filter(pk=id)
+    if data.exists():
+        data = data.first()
+        response = {
+            'status': 200,
+            'data':
+            {
+                'title': data.title,
+                'short_address': data.short_location,
+                'guest': data.guests,
+                'type': data.property_type,
+                'image': create_url('/media' + str(data.image), request),
+                'price': data.price_per_night,
+                'review': 4.3,
+                'detail_link': 'properties/detail/' + str(data.pk) + '/'
+            }
+        }
+    else:
+        response = {
+            'status': 404
+        }
+    return Response(response)
 
 
 @api_view(['GET'])
@@ -32,20 +63,18 @@ def home(request):
         'data': []
     }
     for d in data:
-        print(request.build_absolute_uri(d.image))
         response['data'].append({
             'title': d.title,
             'short_address': d.short_location,
             'guest': d.guests,
             'type': d.property_type,
-            'image': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+            'image': create_url('/media/' + str(d.image), request),
             'price': d.price_per_night,
-            'review': 4.3
+            'review': 4.3,
+            'detail_link': 'properties/detail/' + str(d.pk) + '/'
 
         })
     return Response(response)
-
-
 
 
 @api_view(['POST'])
