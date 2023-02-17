@@ -13,7 +13,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages = ["Apartments", "Hotels", "Bungalow", "PG"];
+const pages = []; 
+// "Apartments", "Hotels", "Bungalow", "PG"
 function setCookie(cname, cvalue) {
   const d = new Date();
   d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);

@@ -74,6 +74,7 @@ function Home() {
           recievedData.map((card, idx) => {
             return (
               <Cards
+                detail_link={card.detail_link}
                 title={card.title}
                 short_address={card.short_address}
                 guest={card.guest}

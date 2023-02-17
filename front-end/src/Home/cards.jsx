@@ -8,7 +8,7 @@ import { Icon } from "@iconify/react";
 
 export default function RecipeReviewCard(props) {
   return (
-    <a href="/details">
+    <a href={props.detail_link}>
       <Card
         sx={{ maxWidth: 345 }}
         className="hover:scale-105 hover:shadow-2xl cursor-pointer"
@@ -17,6 +17,7 @@ export default function RecipeReviewCard(props) {
         <CardMedia
           component="img"
           height="194"
+          className="h-96 w-96"
           image={props.image}
           alt="Hotel"
         />
