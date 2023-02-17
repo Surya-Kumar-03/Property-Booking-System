@@ -159,9 +159,9 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="Post Property" onClick={handleCloseUserMenu}>
+              {/* <MenuItem key="Post Property" onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Post Property</Typography>
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 key="Logout"
                 onClick={() => {
