@@ -7,7 +7,7 @@
 - Elevate Your Property Showcase: Present Your Listings with our Sleek and Modern Card System!
 - Experience Your Dream Destination: Dive into the Details with Our Hotel's Comprehensive View Pages!
 
-> This project was developed for a hackathon within a time frame of 6 hours. 
+> This project was developed for a hackathon within a time frame of 6 hours.
 > We request you to take into account the limitations and difficulties faced during the planning, web design, development, and hosting stages of this project.
 
 ## Tech
@@ -31,6 +31,7 @@ Front-End Setup
 ```sh
 cd front-end
 npm install
+npm build
 ```
 
 Back-End Setup
@@ -38,7 +39,7 @@ Back-End Setup
 ```sh
 cd backend
 python -m venv venv
-venv/script/activate # windows
+venv/scripts/activate # windows
 source venv/bin/activate # linux/Mac
 pip install -r requirements.txt
 python manage.py runserver
@@ -48,4 +49,3 @@ python manage.py runserver
 
 Want to contribute? Great!
 You can follow the setup and contribute to the project. Connect with us if you are stuck!
-

@@ -19,6 +19,7 @@ function Details() {
 					<img
 						src={detail.image}
 						className='h-1/2 w-1/3 m-2 rounded-xl shadow-xl'
+						alt={detail.title}
 					></img>
 					<div className='flex flex-col justify-center items-center w-full ml-4'>
 						<div className='flex flex-row items-center justify-center gap-3'>

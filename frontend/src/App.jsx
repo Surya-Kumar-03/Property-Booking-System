@@ -4,44 +4,49 @@ import Home from "./Home/home";
 import React from "react";
 import Login from "./Login/login";
 import Details from "./Details/details";
+import cookie from "./cookie";
+import NotFound from "./404/NotFound";
 
-function getCookie(cname) {
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(";");
-	for (let i = 0; i < ca.length; i++) {
-		let c = ca[i];
-		while (c.charAt(0) === " ") {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) === 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
+const routes = [
+	{ path: "/", element: <Home /> },
+	{ path: "/login", element: <Login /> },
+	{ path: "/properties/detail/*", element: <Details /> },
+];
 
 function App() {
 	const navigate = useNavigate();
-	React.useEffect(() => {
-		let token = getCookie("token");
-		console.log(token);
-		if (token === "" || token === "-1") {
-			navigate("/login");
-		} else {
-			if (window.location.pathname === "/login") {
-				navigate("/");
-			}
-			navigate(window.location.pathname);
-		}
-	}, []);
 
+	const all_route = new Set();
+
+	for (let x in routes) {
+		all_route.add(routes[x].path);
+	}
+	React.useEffect(() => {
+		if (all_route.has(window.location.pathname)) {
+			let token = cookie.get("token");
+			if (token === "" || token === "-1") {
+				navigate("/login");
+			} else {
+				if (window.location.pathname === "/login") {
+					navigate("/");
+				}
+				navigate(window.location.pathname);
+			}
+		}
+	}, [navigate]);
 	return (
 		<Routes>
 			<Route path='/' element={<Layout></Layout>}>
-				<Route index element={<Home></Home>}></Route>
-				<Route path='/login' element={<Login></Login>}></Route>
-				<Route path='properties/detail/*' element={<Details></Details>}></Route>
+				{routes.map(route => {
+					return (
+						<Route
+							key={route.path}
+							path={route.path}
+							element={route.element}
+						></Route>
+					);
+				})}
+				<Route path='*' element={<NotFound />} />
 			</Route>
 		</Routes>
 	);

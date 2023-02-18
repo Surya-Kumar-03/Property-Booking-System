@@ -1,15 +1,15 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Icon } from "@iconify/react";
 import Loader from "../Loader/loader";
+import { Link } from "react-router-dom";
 
 export default function RecipeReviewCard(props) {
 	return (
-		<a href={props.detail_link + "/"}>
+		<Link to={props.detail_link}>
 			<Card
 				sx={{ maxWidth: 345 }}
 				className='hover:scale-105 hover:shadow-2xl cursor-pointer'
@@ -56,6 +56,6 @@ export default function RecipeReviewCard(props) {
 					</Typography>
 				</CardContent>
 			</Card>
-		</a>
+		</Link>
 	);
 }

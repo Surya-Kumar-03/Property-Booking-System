@@ -10,16 +10,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import instance from "../axios";
+import { useNavigate } from "react-router-dom";
+import cookie from "../cookie";
 
 const theme = createTheme();
-function setCookie(cname, cvalue) {
-	const d = new Date();
-	d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);
-	let expires = "expires=" + d.toUTCString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
 
 export default function Login() {
+	const navigate = useNavigate();
 	const handleSubmit = event => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
@@ -28,10 +25,9 @@ export default function Login() {
 		instance
 			.post("login/", data)
 			.then(response => {
-				console.log("Response:", response.data);
-				setCookie("token", response.data.token);
+				cookie.set("token", response.data.token);
 				if (response.data.token !== "-1") {
-					window.location.replace("/");
+					navigate("/");
 				}
 			})
 			.catch(error => {

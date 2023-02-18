@@ -6,40 +6,21 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
+import { useNavigate } from "react-router-dom";
+import cookie from "../cookie";
 const pages = [];
-// "Apartments", "Hotels", "Bungalow", "PG"
-function setCookie(cname, cvalue) {
-	const d = new Date();
-	d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);
-	let expires = "expires=" + d.toUTCString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function deleteCookie() {
-	setCookie("token", -1);
-	window.location.reload();
-}
 
 function ResponsiveAppBar() {
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
+	const navigate = useNavigate();
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-	const handleOpenNavMenu = event => {
-		setAnchorElNav(event.currentTarget);
-	};
 	const handleOpenUserMenu = event => {
 		setAnchorElUser(event.currentTarget);
-	};
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
 	};
 
 	const handleCloseUserMenu = () => {
@@ -66,42 +47,7 @@ function ResponsiveAppBar() {
 						}}
 					></Typography>
 
-					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-						<IconButton
-							size='large'
-							aria-label='account of current user'
-							aria-controls='menu-appbar'
-							aria-haspopup='true'
-							onClick={handleOpenNavMenu}
-							color='inherit'
-						>
-							<MenuIcon />
-						</IconButton>
-						<Menu
-							id='menu-appbar'
-							anchorEl={anchorElNav}
-							anchorOrigin={{
-								vertical: "bottom",
-								horizontal: "left",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}
-							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
-							sx={{
-								display: { xs: "block", md: "none" },
-							}}
-						>
-							{pages.map(page => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign='center'>{page}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
-					</Box>
+					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}></Box>
 					<img
 						src={Logo}
 						className='hidden sm:block h-12 mr-2'
@@ -129,7 +75,6 @@ function ResponsiveAppBar() {
 						{pages.map(page => (
 							<Button
 								key={page}
-								onClick={handleCloseNavMenu}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>
 								{page}
@@ -137,42 +82,47 @@ function ResponsiveAppBar() {
 						))}
 					</Box>
 
-					<Box sx={{ flexGrow: 0 }}>
-						<Tooltip title='Open settings'>
-							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
-							</IconButton>
-						</Tooltip>
-						<Menu
-							sx={{ mt: "45px" }}
-							id='menu-appbar'
-							anchorEl={anchorElUser}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
-						>
-							{/* <MenuItem key="Post Property" onClick={handleCloseUserMenu}>
+					{cookie.get("token") !== "-1" && cookie.get("token") !== "" ? (
+						<Box sx={{ flexGrow: 0 }}>
+							<Tooltip title='Open settings'>
+								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+									<Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+								</IconButton>
+							</Tooltip>
+							<Menu
+								sx={{ mt: "45px" }}
+								id='menu-appbar'
+								anchorEl={anchorElUser}
+								anchorOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								open={Boolean(anchorElUser)}
+								onClose={handleCloseUserMenu}
+							>
+								{/* <MenuItem key="Post Property" onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Post Property</Typography>
               </MenuItem> */}
-							<MenuItem
-								key='Logout'
-								onClick={() => {
-									handleCloseUserMenu();
-									deleteCookie();
-								}}
-							>
-								<Typography textAlign='center'>Logout</Typography>
-							</MenuItem>
-						</Menu>
-					</Box>
+								<MenuItem
+									key='Logout'
+									onClick={() => {
+										handleCloseUserMenu();
+										cookie.set("token", -1);
+										navigate("/login");
+									}}
+								>
+									<Typography textAlign='center'>Logout</Typography>
+								</MenuItem>
+							</Menu>
+						</Box>
+					) : (
+						<></>
+					)}
 				</Toolbar>
 			</Container>
 		</AppBar>

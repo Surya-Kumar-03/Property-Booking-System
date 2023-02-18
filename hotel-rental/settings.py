@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1=k-6m1m)^z%$g$ln2k5_7^ohm)y_8krkdtnn#j+2(+cka(-3d'
+    
+    
+SECRET_KEY = config('SECRET_KEY', default='+iy3$9=hnq_04=7icdb+w%0tm-lf$2$x%w5)j(gx&(f03+3)ez')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=True)
+# SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['0.0.0.0','*','.']
+ALLOWED_HOSTS = config('ALLOWED_HOST', cast=lambda x:x.split(","), default='*')
 
 
 # Application definition
@@ -54,8 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
-CORS_ORIGIN_WHITELIST = CORS_ALLOWED_ORIGINS = ('http://localhost:3000', 'http://192.168.137.34:3000')
+CORS_ORIGIN_WHITELIST  = ('http://localhost:3000',)
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'hotel-rental.urls'
@@ -63,7 +65,7 @@ ROOT_URLCONF = 'hotel-rental.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'frontend'/ 'build']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -141,6 +143,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
 STATICFILES_DIRS = (
       BASE_DIR / 'static/',
-     BASE_DIR / 'templates'/ 'static',
-     BASE_DIR / 'templates',
+     BASE_DIR / 'frontend'/ 'build' / 'static',
+     BASE_DIR / 'frontend'/ 'build'
 )
