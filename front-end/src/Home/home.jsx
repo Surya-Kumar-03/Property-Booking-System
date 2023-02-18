@@ -53,7 +53,7 @@ function Home() {
           <DesktopDatePicker
             label="End Date"
             inputFormat="MM/DD/YYYY"
-            value={value}
+            value={dayjs("2023-02-23T21:11:54")}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
           />

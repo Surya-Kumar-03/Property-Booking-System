@@ -30,7 +30,7 @@ def detail_view(request, id):
                 'short_address': data.short_location,
                 'guest': data.guests,
                 'type': data.property_type,
-                'image': create_url('/media' + str(data.image), request),
+                'image': create_url('/media/' + str(data.image), request),
                 'price': data.price_per_night,
                 'review': 4.3,
                 'detail_link': 'properties/detail/' + str(data.pk) + '/'
@@ -50,6 +50,7 @@ def home(request):
         q = q.strip()
         query = q.split(' ')
         asd = Q()
+        
         for x in query:
             asd = asd | Q(title__icontains=x)
             asd = asd | Q(short_location__icontains=x)
@@ -109,4 +110,3 @@ def booking(request):
         }
         return Response({'status': 200, 'data': response})
     return Response({'status': 401, 'errors': book.errors})
-
