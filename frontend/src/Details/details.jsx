@@ -8,18 +8,16 @@ function Details() {
 		let data = [];
 		instance.get(window.location.pathname).then(response => {
 			data = response.data;
-			console.log(data.data);
 			setDetail(data.data);
-			console.log(detail);
 		});
 	}, []);
 
 	if (detail.length !== 0) {
 		return (
-			<div className='flex flex-col w-full h-full justify-center items-center gap-3'>
+			<div className='flex flex-col w-full h-full justify-center items-center gap-3 animateCards'>
 				<div className='flex flex-row mt-4 w-11/12 h-'>
 					<img
-						src='https://a0.muscache.com/im/pictures/miso/Hosting-722179355353877964/original/bdd5abd9-b8e8-4369-beee-c28c377ff4db.jpeg?im_w=1200'
+						src={detail.image}
 						className='h-1/2 w-1/3 m-2 rounded-xl shadow-xl'
 					></img>
 					<div className='flex flex-col justify-center items-center w-full ml-4'>

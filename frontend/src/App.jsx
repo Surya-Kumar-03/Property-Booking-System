@@ -34,7 +34,7 @@ function App() {
 			}
 			navigate(window.location.pathname);
 		}
-	}, [navigate]);
+	}, []);
 
 	return (
 		<Routes>
