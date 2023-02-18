@@ -12,18 +12,17 @@ export default function RecipeReviewCard(props) {
     <a href={props.detail_link}>
       <Card
         sx={{ maxWidth: 345 }}
-        className="hover:scale-105 hover:shadow-2xl cursor-pointer animateCards"
+        className="hover:scale-105 hover:shadow-2xl cursor-pointer"
       >
         <CardHeader title={props.title} />
-
         <Loader
           src={props.image}
           alt="Hotel"
           className="h-96 w-96"
           loading_text="Loading..."
         >
-          <div className="w-full h-full flex justify-center items-center flex-col gap-4">
-            <div className="animate-spin inline-block w-8 h-8 border-4 border-x-0 rounded-full border-fill"></div>
+          <div className="w-full h-full flex justify-center items-center flex-col gap-4 ">
+            <div className="animate-spin  inline-block w-8 h-8 border-4 border-x-0 rounded-full  border-[#fe375d]"></div>
             <h1>Loading...</h1>
           </div>
         </Loader>
