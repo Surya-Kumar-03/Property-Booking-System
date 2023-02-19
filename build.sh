@@ -1,5 +1,6 @@
 set -o errexit
 
+poetry self update
 poetry install
 
 python manage.py collectstatic --no-input
