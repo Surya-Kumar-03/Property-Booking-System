@@ -1,12 +1,10 @@
 set -o errexit
 
-echo "Removing poetry"
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 - --uninstall
-echo "Installing poetry"
+echo "Installing the latest version of poetry..."
+export POETRY_HOME="$(pwd)/.poetry"
 curl -sSL https://install.python-poetry.org | python3 -
-
-echo "Updating poetry"
-poetry self update
+export PATH="$POETRY_HOME/bin:$PATH"
+poetry --version
 
 echo "Setting up python venv"
 poetry install
