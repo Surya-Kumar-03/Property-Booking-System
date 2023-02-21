@@ -15,3 +15,5 @@ echo "Collect Static"
 python manage.py collectstatic --no-input
 echo "Migrate DataBase"
 python manage.py migrate
+echo "setting up database"
+python setup_db.py 
