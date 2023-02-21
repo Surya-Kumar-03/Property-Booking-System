@@ -16,21 +16,13 @@ const routes = [
 function App() {
 	const navigate = useNavigate();
 
-	const all_route = new Set();
-
-	for (let x in routes) {
-		all_route.add(routes[x].path);
-	}
 	React.useEffect(() => {
-		if (all_route.has(window.location.pathname)) {
-			let token = cookie.get("token");
-			if (token === "" || token === "-1") {
-				navigate("/login");
-			} else {
-				if (window.location.pathname === "/login") {
-					navigate("/");
-				}
-				navigate(window.location.pathname);
+		let token = cookie.get("token");
+		if (token === "" || token === "-1") {
+			navigate("/login");
+		} else {
+			if (window.location.pathname === "/login") {
+				navigate("/");
 			}
 		}
 	}, [navigate]);
