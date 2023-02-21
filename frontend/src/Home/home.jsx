@@ -30,7 +30,7 @@ function Home() {
 
 	return (
 		<div className='flex flex-col w-screen items-center justify-start'>
-			<div className='flex flex-row w-10/12 h-24 bg-gray-200 rounded-lg shadow-md mt-4 items-center justify-center gap-2'>
+			<div className='flex flex-row w-10/12 h-24 p-3 bg-gray-200 rounded-lg shadow-md mt-4 items-center justify-center gap-2'>
 				<TextField
 					className='w-96'
 					id='filled-basic'

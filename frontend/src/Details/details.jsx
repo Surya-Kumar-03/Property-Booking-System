@@ -15,10 +15,10 @@ function Details() {
 	if (detail.length !== 0) {
 		return (
 			<div className='flex flex-col w-full h-full justify-center items-center gap-3 animateCards'>
-				<div className='flex flex-row mt-4 w-11/12 h-'>
+				<div className='flex flex-col sm:flex-row mt-4 w-11/12 items-center'>
 					<img
 						src={detail.image}
-						className='h-1/2 w-1/3 m-2 rounded-xl shadow-xl'
+						className='h-1/2 w-full sm:w-1/3 m-2 rounded-xl shadow-xl'
 						alt={detail.title}
 					></img>
 					<div className='flex flex-col justify-center items-center w-full ml-4'>
