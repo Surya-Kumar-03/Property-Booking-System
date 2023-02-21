@@ -11,7 +11,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+import os
+
+def config(name, cast=None, default=None):
+    rv = os.environ.get(name, default=default)
+    if cast:
+        rv = cast(rv)
+    return rv
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,15 +28,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-    
+
     
 SECRET_KEY = config('SECRET_KEY', default='+iy3$9=hnq_04=7icdb+w%0tm-lf$2$x%w5)j(gx&(f03+3)ez')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool, default=True)
+DEBUG = 'RENDER' not in os.environ
 # SECURITY WARNING: don't run with debug turned on in production!
 
 ALLOWED_HOSTS = config('ALLOWED_HOST', cast=lambda x:x.split(","), default='*')
+
+
 
 
 # Application definition
@@ -48,6 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,15 +145,20 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
 
+MEDIA_URL = '/media/'
 STATIC_URL = 'static/'
+
+if not DEBUG:    
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Turn on WhiteNoise storage backend that takes care of compressing static files
+    # and creating unique names for each version so they can safely be cached forever.
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # this is where files will be stored when collectstatic is executed
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
 STATICFILES_DIRS = (
-      BASE_DIR / 'static/',
      BASE_DIR / 'frontend'/ 'build' / 'static',
      BASE_DIR / 'frontend'/ 'build'
 )
