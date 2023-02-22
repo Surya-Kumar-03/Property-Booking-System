@@ -55,4 +55,4 @@ python manage.py runserver
 ## Development
 
 Want to contribute? Great!
-You can follow the setup and contribute to the project. Connect with us if you are stuck!
+You can follow the setup and contribute to the project. Connect with us if you are  stuck!
