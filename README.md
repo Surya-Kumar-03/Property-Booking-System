@@ -1,6 +1,6 @@
 # Property Booking System
 
-## [Try it here!](http://hotel-rental.onrender.com/)
+## [Try it here!](https://hotel-rental.onrender.com/login)
 
 ## Features
 
