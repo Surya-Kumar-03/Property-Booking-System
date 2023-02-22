@@ -7,7 +7,7 @@
 - Access Made Simple: Experience Effortless Login with Our User-Friendly System!
 - Discover Your Perfect Stay: Find Your Ideal Hotel by Name or Location!
 - Elevate Your Property Showcase: Present Your Listings with our Sleek and Modern Card System!
-- Experience Your Dream Destination: Dive into the Details with Our Hotel's Comprehensive View Pages!
+- Experience Your Dream Destination: Dive into the Details with the Hotel's Comprehensive View Pages!
 
 > This project was developed for a hackathon within a time frame of 6 hours.
 > We request you to take into account the limitations and difficulties faced during the planning, web design, development, and hosting stages of this project.
