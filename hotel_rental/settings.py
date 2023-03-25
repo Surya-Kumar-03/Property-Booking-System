@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
+
 def config(name, cast=None, default=None):
     rv = os.environ.get(name, default=default)
     if cast:
@@ -29,16 +30,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-    
-SECRET_KEY = config('SECRET_KEY', default='+iy3$9=hnq_04=7icdb+w%0tm-lf$2$x%w5)j(gx&(f03+3)ez')
+
+SECRET_KEY = config(
+    'SECRET_KEY', default='+iy3$9=hnq_04=7icdb+w%0tm-lf$2$x%w5)j(gx&(f03+3)ez')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = config('ALLOWED_HOST', cast=lambda x:x.split(","), default='*')
-
-
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -68,7 +68,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
-CORS_ORIGIN_WHITELIST  = ('http://localhost:3000',)
+CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'hotel_rental.urls'
@@ -76,8 +76,7 @@ ROOT_URLCONF = 'hotel_rental.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'frontend'/ 'build']
-        ,
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'frontend' / 'build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -149,7 +148,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 STATIC_URL = 'static/'
 
-if not DEBUG:    
+if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
@@ -159,7 +158,7 @@ if not DEBUG:
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
 STATICFILES_DIRS = (
-     BASE_DIR / 'frontend'/ 'build' / 'static',
-     BASE_DIR / 'frontend'/ 'build',
-     BASE_DIR / 'media'
+    BASE_DIR / 'frontend' / 'build' / 'static',
+    BASE_DIR / 'frontend' / 'build',
+    BASE_DIR / 'media'
 )
